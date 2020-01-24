@@ -5,10 +5,13 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "scrape": "nodemon pokemonScraper.js --watch pokemonScraper.js"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "expo": "~36.0.0",
+    "nodemon": "^2.0.2",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
