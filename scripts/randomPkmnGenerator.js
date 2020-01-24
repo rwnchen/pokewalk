@@ -1,7 +1,14 @@
 const pokemon = require('../data/pokemon');
 
-const generatePkmn = () => {
-  const pkmnIdx = Math.floor(Math.random() * pokemon.length);
+/**
+ * Generates a Pokemon with a random moveset. If a dex number is not specified,
+ * it will generate a random Pokemon.
+ * @param {*} dexNum The dex number of the Pokemon to be generated
+ */
+const generatePkmn = (dexNum) => {
+  const pkmnIdx = dexNum
+    ? dexNum - 1
+    : Math.floor(Math.random() * pokemon.length);
 
   const pkmn = pokemon[pkmnIdx];
   const allMoves = pkmn.moves;
@@ -19,6 +26,6 @@ const generatePkmn = () => {
   return { ...pkmn, moves: moveset };
 };
 
-console.log(generatePkmn());
+console.log(generatePkmn(1));
 
 module.exports = generatePkmn;

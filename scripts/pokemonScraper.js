@@ -7,6 +7,10 @@ const fs = require('fs');
 
 const ONLY_DAMAGE_MOVES = true;
 
+/**
+ * Fetches the first {num} Pokemon in the dex from the PokeAPI.
+ * @param {Integer} num the number of Pokemon to be fetched
+ */
 const getPokemon = async (num) => {
   try {
     const urls = [];
@@ -46,6 +50,11 @@ const getPokemon = async (num) => {
   }
 };
 
+/**
+ * Takes an array of Pokemon and consolidates all of their moves, removing
+ * duplicates.
+ * @param {Array[Object]} pokemon the array of Pokemon
+ */
 const getUniqueMoves = (pokemon) => {
   let moves = new Set();
 
@@ -56,6 +65,12 @@ const getUniqueMoves = (pokemon) => {
   return moves;
 };
 
+/**
+ * Takes an array of Pokemon and filters out moves according to rules for
+ * allowed moves, e.g. only using damaging moves.
+ * @param {Array[Object]} pokemon the array of Pokemon
+ * @param {Array[Object]} moves the array of moves we are allowing
+ */
 const filterMovesets = (pokemon, moves) => {
   return pokemon.map((pkmn) => {
     pkmn.moves = pkmn.moves.filter((move) => {
@@ -66,6 +81,10 @@ const filterMovesets = (pokemon, moves) => {
   });
 };
 
+/**
+ * Fetches moves data from the PokeAPI given an array of move names.
+ * @param {Array[Object]} moveNames the array of move names
+ */
 const getMoves = async (moveNames) => {
   try {
     let urls = [];
@@ -104,17 +123,18 @@ const getMoves = async (moveNames) => {
   }
 };
 
+/**
+ * Scraper
+ */
 const run = async () => {
-  const pkmn = await getPokemon(9);
+  let pkmn = await getPokemon(9);
   const uniqueMoves = getUniqueMoves(pkmn);
   const moves = await getMoves(uniqueMoves);
-  const filteredPokemon = filterMovesets(pkmn, moves);
+  if (ONLY_DAMAGE_MOVES) pkmn = filterMovesets(pkmn, moves);
 
   fs.writeFile(
     './data/pokemon.js',
-    `const pokemon = ${JSON.stringify(
-      filteredPokemon
-    )}; module.exports = pokemon;`,
+    `const pokemon = ${JSON.stringify(pkmn)}; module.exports = pokemon;`,
     (err) =>
       err ? console.log(err) : console.log('=====POKEMON FILE WRITTEN=====')
   );
