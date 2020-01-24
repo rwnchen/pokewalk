@@ -1,64 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pedometer } from 'expo-sensors';
 import { StyleSheet, Text, View } from 'react-native';
 
-class StepCount extends React.Component {
-  state = {
-    isPedometerAvailable: 'checking',
-    pastStepCount: 0,
-    currentStepCount: 0,
-  };
+import Store from './store';
 
-  componentDidMount() {
-    this.subscribe();
-  }
+const StepCount = (props) => {
+  const store = Store.useStore();
+  let subscription;
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  subscribe = () => {
-    this.subscription = Pedometer.watchStepCount((result) => {
-      this.setState({
-        currentStepCount: result.steps,
-      });
+  const subscribe = () => {
+    subscription = Pedometer.watchStepCount((result) => {
+      console.log('stepping', result.steps);
+      store.set('steps')(result.steps);
     });
 
     Pedometer.isAvailableAsync().then(
       (result) => {
-        this.setState({
-          isPedometerAvailable: String(result),
-        });
+        console.log('Pedometer available');
       },
       (error) => {
-        this.setState({
-          isPedometerAvailable: 'Could not get isPedometerAvailable: ' + error,
-        });
+        console.log('Pedometer unavailable: ' + error);
       }
     );
   };
 
-  unsubscribe = () => {
-    this.subscription && this.subscription.remove();
-    this.subscription = null;
+  const unsubscribe = () => {
+    subscription && subscription.remove();
+    subscription = null;
+    store.set('steps')(0);
   };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Steps: {this.state.currentStepCount}</Text>
-      </View>
-    );
-  }
-}
+  useEffect(() => {
+    subscribe();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    return () => unsubscribe();
+  }, []);
 
-export default StepCount;
+  return (
+    <View>
+      <Text>Undux Steps: {store.get('steps')}</Text>
+    </View>
+  );
+};
+
+export default Store.withStore(StepCount);

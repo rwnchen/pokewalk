@@ -6,5 +6,10 @@ const initialState = {
   steps: 0,
 };
 
+let effects = (store) => {
+  store.on('steps').subscribe((steps) => console.log('undux step: ' + steps));
+  return store;
+};
+
 // Create & export a store with an initial value.
-export default createConnectedStore(initialState);
+export default createConnectedStore(initialState, effects);

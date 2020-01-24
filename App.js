@@ -1,13 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import StepCount from './components/StepCount.js';
+import Store from './components/store';
+import StepCount from './components/StepCount';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StepCount></StepCount>
-    </View>
+    <Store.Container>
+      <View style={styles.container}>
+        <Text>Hello</Text>
+        <StepCount></StepCount>
+      </View>
+    </Store.Container>
   );
 }
 
