@@ -26,6 +26,6 @@ const generatePkmn = (dexNum) => {
   return { ...pkmn, moves: moveset };
 };
 
-console.log(generatePkmn(1));
+generatePkmn();
 
 module.exports = generatePkmn;
