@@ -1,3 +1,2 @@
-import { default as StepCount } from './StepCount';
-
-export default { StepCount };
+export * from './Controller';
+export * from './StepCount';

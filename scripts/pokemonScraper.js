@@ -141,7 +141,7 @@ const run = async () => {
   );
 
   fs.writeFile(
-    './data/moves.json',
+    './data/moves.js',
     `const moves = ${JSON.stringify(moves)}; module.exports = moves;`,
     (err) =>
       err ? console.log(err) : console.log('=====MOVE FILE WRITTEN=====')

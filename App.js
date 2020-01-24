@@ -2,14 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Store from './components/store';
-import StepCount from './components/StepCount';
+import { Controller } from './components/index';
 
 export default function App() {
   return (
     <Store.Container>
       <View style={styles.container}>
-        <Text>Hello</Text>
-        <StepCount></StepCount>
+        <Controller></Controller>
       </View>
     </Store.Container>
   );

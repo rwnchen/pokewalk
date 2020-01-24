@@ -1,22 +1,19 @@
 import React, { useEffect } from 'react';
 import { Pedometer } from 'expo-sensors';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import Store from './store';
+import Store, { gameStates } from './store';
 
-const StepCount = (props) => {
+const UnconnectedStepCount = (props) => {
   const store = Store.useStore();
   let subscription;
 
-  const subscribe = () => {
-    subscription = Pedometer.watchStepCount((result) => {
-      console.log('stepping', result.steps);
-      store.set('steps')(result.steps);
-    });
-
-    Pedometer.isAvailableAsync().then(
+  const subscribe = async () => {
+    await Pedometer.isAvailableAsync().then(
       (result) => {
-        console.log('Pedometer available');
+        subscription = Pedometer.watchStepCount((result) => {
+          store.set('steps')(result.steps);
+        });
       },
       (error) => {
         console.log('Pedometer unavailable: ' + error);
@@ -33,7 +30,7 @@ const StepCount = (props) => {
   useEffect(() => {
     subscribe();
 
-    return () => unsubscribe();
+    return () => unsubscribe;
   }, []);
 
   return (
@@ -43,4 +40,5 @@ const StepCount = (props) => {
   );
 };
 
-export default Store.withStore(StepCount);
+const StepCount = Store.withStore(UnconnectedStepCount);
+export { StepCount };
