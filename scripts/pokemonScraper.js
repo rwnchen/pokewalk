@@ -106,11 +106,11 @@ const run = async () => {
   const moves = await getMoves(uniqueMoves);
   const filteredPokemon = filterMovesets(pkmn, moves);
 
-  fs.writeFile('pokemon.json', JSON.stringify(filteredPokemon), (err) =>
+  fs.writeFile('./data/pokemon.json', JSON.stringify(filteredPokemon), (err) =>
     err ? console.log(err) : console.log('=====POKEMON FILE WRITTEN=====')
   );
 
-  fs.writeFile('moves.json', JSON.stringify(moves), (err) =>
+  fs.writeFile('./data/moves.json', JSON.stringify(moves), (err) =>
     err ? console.log(err) : console.log('=====MOVE FILE WRITTEN=====')
   );
 };

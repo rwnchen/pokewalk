@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "scrape": "nodemon pokemonScraper.js --watch pokemonScraper.js"
+    "scrape": "nodemon ./scripts/pokemonScraper.js --watch ./scripts/pokemonScraper.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
