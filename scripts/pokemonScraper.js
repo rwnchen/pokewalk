@@ -1,3 +1,7 @@
+/******************************************************************************/
+// ALL DATA TAKEN FROM https://pokeapi.co
+/******************************************************************************/
+
 const axios = require('axios');
 const fs = require('fs');
 
@@ -106,12 +110,20 @@ const run = async () => {
   const moves = await getMoves(uniqueMoves);
   const filteredPokemon = filterMovesets(pkmn, moves);
 
-  fs.writeFile('./data/pokemon.json', JSON.stringify(filteredPokemon), (err) =>
-    err ? console.log(err) : console.log('=====POKEMON FILE WRITTEN=====')
+  fs.writeFile(
+    './data/pokemon.js',
+    `const pokemon = ${JSON.stringify(
+      filteredPokemon
+    )}; module.exports = pokemon;`,
+    (err) =>
+      err ? console.log(err) : console.log('=====POKEMON FILE WRITTEN=====')
   );
 
-  fs.writeFile('./data/moves.json', JSON.stringify(moves), (err) =>
-    err ? console.log(err) : console.log('=====MOVE FILE WRITTEN=====')
+  fs.writeFile(
+    './data/moves.json',
+    `const moves = ${JSON.stringify(moves)}; module.exports = moves;`,
+    (err) =>
+      err ? console.log(err) : console.log('=====MOVE FILE WRITTEN=====')
   );
 };
 
