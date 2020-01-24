@@ -12,7 +12,7 @@ const UnconnectedStepCount = (props) => {
     await Pedometer.isAvailableAsync().then(
       (result) => {
         subscription = Pedometer.watchStepCount((result) => {
-          store.set('steps')(result.steps);
+          store.set('steps')(result.steps - 1);
         });
       },
       (error) => {
