@@ -107,6 +107,7 @@ const getMoves = async (moveNames) => {
                 power: move.power,
                 accuracy: move.accuracy,
                 type: move.type.name,
+                // meta: move.meta,
               }
             : null;
 
