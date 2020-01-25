@@ -1,5 +1,7 @@
 const pokemon = require('../data/pokemon');
 
+const BASE_SHINY_RATE = 0.1;
+
 /**
  * Generates a Pokemon with a random moveset. If a dex number is not specified,
  * it will generate a random Pokemon.
@@ -23,7 +25,11 @@ const generatePkmn = (dexNum) => {
     }
   }
 
-  return { ...pkmn, moves: moveset };
+  return {
+    ...pkmn,
+    moves: moveset,
+    isShiny: Math.random() > 1 - BASE_SHINY_RATE,
+  };
 };
 
 generatePkmn();

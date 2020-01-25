@@ -4,12 +4,14 @@ import Store, { gameStates } from './store';
 
 const UnconnectedEncounter = () => {
   const store = Store.useStore();
+  const pkmn = store.get('enemy');
+
   return (
     <View>
-      <Text>Encounter with: {store.get('enemy').name}</Text>
+      <Text>Encounter with: {pkmn.name}</Text>
       <Image
         style={{ width: 100, height: 100 }}
-        source={{ uri: store.get('enemy').sprites }}
+        source={pkmn.isShiny ? { uri: pkmn.shinySprite } : { uri: pkmn.sprite }}
       />
       <Button
         title='End Encounter'

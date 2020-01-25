@@ -35,11 +35,12 @@ const getPokemon = async (num) => {
           const id = urlParts[urlParts.length - 2];
           return { id, name: obj.move.name };
         });
-        const sprites = pokemon.sprites.front_default;
+        const sprite = pokemon.sprites.front_default;
+        const shinySprite = pokemon.sprites.front_shiny;
         const types = pokemon.types.map((obj) => obj.type.name);
 
         console.log(`${name} scraped`);
-        return { name, stats, moves, sprites, types };
+        return { name, stats, moves, sprite, shinySprite, types };
       });
     });
 
