@@ -18,7 +18,7 @@ let effects = (store) => {
   store.on('steps').subscribe((steps) => {
     console.log('undux step: ' + steps, store.get('gameState'));
 
-    if (store.get('gameState') === gameStates.ROAMING) {
+    if (store.get('gameState') === gameStates.ROAMING && steps !== 0) {
       const isEncounter = Math.random() > 1 - BASE_ENCOUNTER_RATE;
 
       if (isEncounter) {
