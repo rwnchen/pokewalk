@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import Store, { gameStates } from './store';
 
 import { Encounter } from './Encounter';
-import { TextBox } from './PixelText';
+import { Box, PixelText } from './PixelText';
 
 const UnconnectedController = (props) => {
   const store = Store.useStore();
@@ -44,8 +44,10 @@ const UnconnectedController = (props) => {
 
   return (
     <View style={styles.container}>
-      <TextBox>Steps: {store.get('steps')}</TextBox>
-      {renderEncounter()}
+      <Box>
+        <PixelText>Steps: {store.get('steps')}</PixelText>
+      </Box>
+      <Box>{renderEncounter()}</Box>
     </View>
   );
 };

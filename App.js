@@ -41,17 +41,17 @@ const Loading = () => {
 };
 
 const TileBG = (props) => {
-  return <Image source={props.img} style={styles.tileBG}></Image>;
+  return <Image source={props.img} style={styles.tileBG} />;
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
+    height: '100%',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'white',
   },
   tileBG: {
     position: 'absolute',

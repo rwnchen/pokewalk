@@ -1,13 +1,17 @@
 import React from 'react';
-import { ImageBackground, View, Text, StyleSheet } from 'react-native';
+import { Image, ImageBackground, View, Text, StyleSheet } from 'react-native';
 
-import { TEXTBOX_BOTTOM, TEXTBOX_MIDDLE, TEXTBOX_TOP } from '../assets';
+import {
+  TEXTBOX_BOTTOM,
+  TEXTBOX_MIDDLE_LEFT,
+  TEXTBOX_MIDDLE_RIGHT,
+  TEXTBOX_TOP,
+} from '../assets';
 
-const TextBox = (props) => {
+const Box = (props) => {
   return (
-    <View>
-      <ImageBackground source={TEXTBOX_TOP} style={styles.textboxTop} />
-      <PixelText>{props.children}</PixelText>
+    <View style={styles.outerBorder}>
+      <View style={styles.textbox}>{props.children}</View>
     </View>
   );
 };
@@ -21,10 +25,20 @@ const PixelText = (props) => {
 };
 
 const styles = StyleSheet.create({
-  textboxTop: {
-    width: '80%',
-    height: 6,
+  textbox: {
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    padding: 12,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#78b8e0',
+  },
+  outerBorder: {
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#98c8f8',
   },
 });
 
-export { TextBox, PixelText };
+export { Box, PixelText };
