@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { Pedometer } from 'expo-sensors';
-import { View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import Store, { gameStates } from './store';
 
 import { Encounter } from './Encounter';
-import { Box, PixelText } from './PixelText';
+import { Roaming } from './Roaming';
+import * as assets from '../assets';
 
 const UnconnectedController = (props) => {
   const store = Store.useStore();
@@ -36,20 +37,26 @@ const UnconnectedController = (props) => {
     return () => unsubscribe;
   }, []);
 
-  const renderEncounter = () => {
-    if (store.get('gameState') === gameStates.ENCOUNTER) {
-      return <Encounter />;
+  const renderState = () => {
+    switch (store.get('gameState')) {
+      case gameStates.ENCOUNTER:
+        return <Encounter />;
+      default:
+        return <Roaming />;
     }
   };
 
   return (
     <View style={styles.container}>
-      <Box>
-        <PixelText>Steps: {store.get('steps')}</PixelText>
-      </Box>
-      <Box>{renderEncounter()}</Box>
+      <TileBG img={assets.GROUND} />
+      <TileBG img={assets.GRASS} />
+      {renderState()}
     </View>
   );
+};
+
+const TileBG = (props) => {
+  return <Image source={props.img} style={styles.tileBG} />;
 };
 
 const styles = StyleSheet.create({
@@ -59,6 +66,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  tileBG: {
+    position: 'absolute',
+    top: -12,
+    width: '120%',
+    height: '120%',
+    resizeMode: 'repeat',
   },
 });
 

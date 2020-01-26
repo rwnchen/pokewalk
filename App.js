@@ -24,9 +24,6 @@ export default function App() {
     <Store.Container>
       {fontsLoaded ? (
         <View style={styles.container}>
-          <TileBG img={assets.GROUND} />
-          <TileBG img={assets.GRASS} />
-
           <Controller />
         </View>
       ) : (
