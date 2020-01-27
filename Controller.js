@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { Pedometer } from 'expo-sensors';
 import { AsyncStorage, Button, Image, View, StyleSheet } from 'react-native';
-import Store, { gameStates } from './store';
+import Store, { gameStates } from './components/store';
 
-import { Encounter } from './Encounter';
-import { Roaming } from './Roaming';
-import * as assets from '../assets';
-
+import { Encounter, Roaming, Pokedex } from './components';
+import * as assets from './assets';
 const DEBUG = true;
 
 const UnconnectedController = (props) => {
@@ -57,6 +55,8 @@ const UnconnectedController = (props) => {
     switch (store.get('gameState')) {
       case gameStates.ENCOUNTER:
         return <Encounter />;
+      case gameStates.POKEDEX:
+        return <Pokedex />;
       default:
         return <Roaming />;
     }
@@ -67,6 +67,7 @@ const UnconnectedController = (props) => {
       <TileBG img={assets.GROUND} />
       <TileBG img={assets.GRASS} />
       {renderState()}
+
       {DEBUG ? (
         <Button
           title={'Clear state'}
@@ -76,7 +77,7 @@ const UnconnectedController = (props) => {
           }}
         />
       ) : (
-        ''
+        <View />
       )}
     </View>
   );

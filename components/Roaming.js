@@ -1,12 +1,17 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import * as assets from '../assets';
-import Store from './store';
+import Store, { gameStates } from './store';
 
-import { Box, PixelText } from './util';
+import { Box, PixelText, Spacer } from './util';
 
 const UnconnectedRoaming = () => {
   const store = Store.useStore();
+
+  const toPokedex = () => {
+    store.set('gameState')(gameStates.POKEDEX);
+  };
+
   return (
     <View style={styles.container}>
       <Box>
@@ -18,18 +23,13 @@ const UnconnectedRoaming = () => {
       </Box>
       <Spacer height={16} />
       <Box>
-        <View style={styles.dexContainer}>
+        <TouchableOpacity onPress={toPokedex} style={styles.dexContainer}>
           <PixelText>View your Pokemon</PixelText>
           <Image source={assets.POKEBALL} />
-        </View>
+        </TouchableOpacity>
       </Box>
     </View>
   );
-};
-
-const Spacer = (props) => {
-  const { height } = props;
-  return <View style={{ height, opacity: 0 }} />;
 };
 
 const styles = StyleSheet.create({

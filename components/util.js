@@ -47,20 +47,34 @@ const PixelText = (props) => {
   return <Text style={{ ...styles.text, ...textColor }}>{props.children}</Text>;
 };
 
+const Spacer = (props) => {
+  const { height } = props;
+  return <View style={{ height, opacity: 0 }} />;
+};
+
 const styles = StyleSheet.create({
   textbox: {
     width: '100%',
     display: 'flex',
     backgroundColor: 'white',
     borderRadius: 4,
-    borderWidth: 1,
+    borderWidth: 2,
     overflow: 'hidden',
   },
   outerBorder: {
     width: '100%',
     display: 'flex',
     borderRadius: 6,
-    borderWidth: 2,
+    borderWidth: 3,
+    shadowColor: '#484050',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+    elevation: 10,
   },
   text: {
     fontFamily: 'pixel-font',
@@ -88,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { Box, BattleTextBox, PixelText };
+export { Box, BattleTextBox, PixelText, Spacer };

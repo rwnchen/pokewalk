@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import * as Font from 'expo-font';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import * as assets from './assets';
 
 import Store from './components/store';
-import { Controller } from './components/index';
+import { Controller } from './Controller';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);

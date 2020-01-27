@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Store, { gameStates } from './store';
 import * as assets from '../assets';
 
@@ -45,6 +45,19 @@ const SpriteLayer = (props) => {
 
 const BattleDialogBox = (props) => {
   const { store, pkmn } = props;
+
+  const catchPkmn = () => {
+    const currPokemon = store.get('trainerPokemon');
+    store.set('trainerPokemon')([...currPokemon, pkmn]);
+    store.set('gameState')(gameStates.ROAMING);
+    store.set('enemy')({});
+  };
+
+  const run = () => {
+    store.set('gameState')(gameStates.ROAMING);
+    store.set('enemy')({});
+  };
+
   return (
     <BattleTextBox>
       <PixelText battle>
@@ -55,32 +68,20 @@ const BattleDialogBox = (props) => {
       </PixelText>
 
       <View style={styles.options}>
-        <PixelText battle>
-          <Image source={assets.POKEBALL} style={{ width: 16, height: 16 }} />
-          <Text
-            style={{ textTransform: 'uppercase', paddingLeft: 8 }}
-            onPress={() => {
-              const currPokemon = store.get('trainerPokemon');
-              store.set('trainerPokemon')([...currPokemon, pkmn]);
-              store.set('gameState')(gameStates.ROAMING);
-              store.set('enemy')({});
-            }}
-          >
-            {'   '}
-            Catch
-          </Text>
-        </PixelText>
-        <PixelText battle>
-          <Text
-            style={{ textTransform: 'uppercase' }}
-            onPress={() => {
-              store.set('gameState')(gameStates.ROAMING);
-              store.set('enemy')({});
-            }}
-          >
-            Run
-          </Text>
-        </PixelText>
+        <TouchableOpacity onPress={catchPkmn}>
+          <PixelText battle>
+            <Image source={assets.POKEBALL} style={{ width: 16, height: 16 }} />
+            <Text style={{ textTransform: 'uppercase', paddingLeft: 8 }}>
+              Catch
+            </Text>
+          </PixelText>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={run}>
+          <PixelText battle>
+            <Text style={{ textTransform: 'uppercase' }}>Run</Text>
+          </PixelText>
+        </TouchableOpacity>
       </View>
     </BattleTextBox>
   );

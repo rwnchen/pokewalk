@@ -5,6 +5,7 @@ import generatePkmn from '../scripts/pokemonGenerator';
 const gameStates = {
   ROAMING: 'roaming',
   ENCOUNTER: 'encounter',
+  POKEDEX: 'pokedex',
 };
 
 export const BASE_ENCOUNTER_RATE = 1;
@@ -38,6 +39,10 @@ let effects = (store) => {
     } catch (error) {
       console.log('Error setting data: ', error);
     }
+  });
+
+  store.on('gameState').subscribe((state) => {
+    // console.log(state);
   });
 
   return store;
