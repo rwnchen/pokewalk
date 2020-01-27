@@ -3,15 +3,18 @@ import { Image, StyleSheet, View } from 'react-native';
 import * as assets from '../assets';
 import Store from './store';
 
-import { PixelText } from './PixelText';
-import { Box } from './util';
+import { Box, PixelText } from './util';
 
 const UnconnectedRoaming = () => {
   const store = Store.useStore();
   return (
     <View style={styles.container}>
       <Box>
-        <PixelText>Steps: {store.get('steps')}</PixelText>
+        <View style={styles.innerContainer}>
+          <PixelText>Steps: {store.get('steps')}</PixelText>
+          <PixelText>Take a walk to find wild Pokemon!</PixelText>
+          <Image source={assets.TRAINER} />
+        </View>
       </Box>
     </View>
   );
@@ -19,12 +22,15 @@ const UnconnectedRoaming = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    width: '100%',
+    width: '60%',
     height: '100%',
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  innerContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
   },
 });
 
