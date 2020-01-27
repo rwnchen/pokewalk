@@ -5,7 +5,7 @@ import Store, { gameStates } from './components/store';
 
 import { Encounter, Roaming, Pokedex } from './components';
 import * as assets from './assets';
-const DEBUG = true;
+const DEBUG = false;
 
 const UnconnectedController = (props) => {
   const store = Store.useStore();
@@ -73,7 +73,7 @@ const UnconnectedController = (props) => {
           title={'Clear state'}
           onPress={async () => {
             await AsyncStorage.setItem('pokemon', '[]');
-            store.set('pokemon')([]);
+            store.set('trainerPokemon')([]);
           }}
         />
       ) : (

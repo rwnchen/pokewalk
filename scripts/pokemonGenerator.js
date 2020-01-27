@@ -14,8 +14,8 @@ const generatePkmn = (dexNum) => {
 
   const pkmn = pokemon[pkmnIdx];
   const isShiny = Math.random() > 1 - BASE_SHINY_RATE;
-  if (isShiny) pkmn.sprite = pkmn.sprite[1];
-  else pkmn.sprite = pkmn.sprite[0];
+  // if (isShiny) pkmn.sprite = pkmn.sprite[1];
+  // else pkmn.sprite = pkmn.sprite[0];
 
   const allMoves = pkmn.moves;
   const moveset = [];
@@ -32,6 +32,7 @@ const generatePkmn = (dexNum) => {
   return {
     ...pkmn,
     moves: moveset,
+    sprite: isShiny ? pkmn.sprite[1] : pkmn.sprite[0],
     isShiny,
   };
 };
