@@ -25,32 +25,63 @@ const UnconnectedEncounter = () => {
           source={assets.BATTLE_BG}
           style={{ width: '100%', height: bgHeight, resizeMode: 'contain' }}
         />
-        <View style={{ ...styles.spriteLayer, height: bgHeight }}>
-          <Image
-            style={styles.enemy}
-            source={
-              pkmn.isShiny ? { uri: pkmn.shinySprite } : { uri: pkmn.sprite }
-            }
-          />
-          <Image source={assets.TRAINER_BACK} style={styles.trainer}></Image>
-        </View>
+        <SpriteLayer bgHeight={bgHeight} pkmn={pkmn} />
 
-        <BattleTextBox>
-          <PixelText battle>
-            A wild{' '}
-            <Text style={{ textTransform: 'uppercase' }}>{pkmn.name}</Text>{' '}
-            appeared!
-          </PixelText>
-          <Button
-            title='End Encounter'
+        <BattleDialogBox store={store} pkmn={pkmn} />
+      </Box>
+    </View>
+  );
+};
+
+const SpriteLayer = (props) => {
+  const { bgHeight, pkmn } = props;
+  return (
+    <View style={{ ...styles.spriteLayer, height: bgHeight }}>
+      <Image
+        style={styles.enemy}
+        source={pkmn.isShiny ? { uri: pkmn.shinySprite } : { uri: pkmn.sprite }}
+      />
+      <Image source={assets.TRAINER_BACK} style={styles.trainer}></Image>
+    </View>
+  );
+};
+
+const BattleDialogBox = (props) => {
+  const { store, pkmn } = props;
+  return (
+    <BattleTextBox>
+      <PixelText battle>
+        A wild
+        {pkmn.isShiny ? <Text style={{ color: 'yellow' }}> shiny </Text> : ' '}
+        <Text style={{ textTransform: 'uppercase' }}>{pkmn.name}</Text>{' '}
+        appeared!
+      </PixelText>
+
+      <View style={styles.options}>
+        <PixelText battle>
+          <Text
+            style={{ textTransform: 'uppercase' }}
             onPress={() => {
               store.set('gameState')(gameStates.ROAMING);
               store.set('enemy')({});
             }}
-          />
-        </BattleTextBox>
-      </Box>
-    </View>
+          >
+            >Catch
+          </Text>
+        </PixelText>
+        <PixelText battle>
+          <Text
+            style={{ textTransform: 'uppercase' }}
+            onPress={() => {
+              store.set('gameState')(gameStates.ROAMING);
+              store.set('enemy')({});
+            }}
+          >
+            >Run
+          </Text>
+        </PixelText>
+      </View>
+    </BattleTextBox>
   );
 };
 
@@ -68,7 +99,7 @@ const styles = StyleSheet.create({
   },
   enemy: {
     position: 'absolute',
-    bottom: '25%',
+    bottom: '30%',
     right: '10%',
     width: 130,
     height: 130,
@@ -79,6 +110,12 @@ const styles = StyleSheet.create({
     left: '5%',
     width: 140,
     height: 140,
+  },
+  options: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 16,
   },
 });
 

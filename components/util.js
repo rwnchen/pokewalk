@@ -36,8 +36,8 @@ const Box = (props) => {
 
 const BattleTextBox = (props) => {
   return (
-    <View styles={styles.battleBoxOuter}>
-      <View styles={styles.battleBoxInner}>{props.children}</View>
+    <View style={styles.battleBoxOuter}>
+      <View style={styles.battleBoxInner}>{props.children}</View>
     </View>
   );
 };
@@ -78,11 +78,13 @@ const styles = StyleSheet.create({
   },
   battleBoxOuter: { width: '100%', backgroundColor: '#484050' },
   battleBoxInner: {
-    width: '100%',
+    marginVertical: 4,
+    marginHorizontal: 12,
     backgroundColor: '#68a0a0',
     borderRadius: 4,
-    borderWidth: 1,
-    padding: 8,
+    borderWidth: 2,
+    borderColor: '#d04838',
+    padding: 12,
   },
 });
 
