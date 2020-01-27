@@ -12,13 +12,20 @@ const UnconnectedRoaming = () => {
     store.set('gameState')(gameStates.POKEDEX);
   };
 
+  const calcAnimation = () => {
+    const steps = store.get('steps');
+    if (steps === 0) return assets.TRAINER;
+    else if (steps % 2 === 0) return assets.TRAINER_1;
+    return assets.TRAINER_2;
+  };
+
   return (
     <View style={styles.container}>
       <Box>
         <View style={styles.innerContainer}>
-          <PixelText>Steps: {store.get('steps')}</PixelText>
+          {/* <PixelText>Steps: {store.get('steps')}</PixelText> */}
           <PixelText>Take a walk to find wild Pokemon!</PixelText>
-          <Image source={assets.TRAINER} />
+          <Image source={calcAnimation()} />
         </View>
       </Box>
       <Spacer height={16} />

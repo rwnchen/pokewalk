@@ -50,11 +50,13 @@ const BattleDialogBox = (props) => {
     store.set('pokemonToCatch')(pkmn);
     store.set('gameState')(gameStates.CAUGHT);
     store.set('enemy')({});
+    store.set('steps')(0);
   };
 
   const run = () => {
     store.set('gameState')(gameStates.ROAMING);
     store.set('enemy')({});
+    store.set('steps')(0);
   };
 
   return (
