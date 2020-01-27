@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import { createConnectedStore } from 'undux';
 import generatePkmn from '../scripts/pokemonGenerator';
 
@@ -12,6 +13,7 @@ const initialState = {
   gameState: gameStates.ROAMING,
   steps: 0,
   enemy: {},
+  trainerPokemon: [],
 };
 
 let effects = (store) => {
@@ -26,6 +28,15 @@ let effects = (store) => {
         const pkmn = generatePkmn();
         store.set('enemy')(pkmn);
       }
+    }
+  });
+
+  store.on('trainerPokemon').subscribe(async (pokemon) => {
+    try {
+      await AsyncStorage.setItem('pokemon', JSON.stringify(pokemon));
+      console.log(pokemon);
+    } catch (error) {
+      console.log('Error setting data: ', error);
     }
   });
 

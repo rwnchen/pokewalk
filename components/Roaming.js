@@ -16,8 +16,20 @@ const UnconnectedRoaming = () => {
           <Image source={assets.TRAINER} />
         </View>
       </Box>
+      <Spacer height={16} />
+      <Box>
+        <View style={styles.dexContainer}>
+          <PixelText>View your Pokemon</PixelText>
+          <Image source={assets.POKEBALL} />
+        </View>
+      </Box>
     </View>
   );
+};
+
+const Spacer = (props) => {
+  const { height } = props;
+  return <View style={{ height, opacity: 0 }} />;
 };
 
 const styles = StyleSheet.create({
@@ -30,6 +42,12 @@ const styles = StyleSheet.create({
   innerContainer: {
     width: '100%',
     display: 'flex',
+    alignItems: 'center',
+  },
+  dexContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 });

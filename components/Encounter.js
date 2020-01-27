@@ -37,10 +37,7 @@ const SpriteLayer = (props) => {
   const { bgHeight, pkmn } = props;
   return (
     <View style={{ ...styles.spriteLayer, height: bgHeight }}>
-      <Image
-        style={styles.enemy}
-        source={pkmn.isShiny ? { uri: pkmn.shinySprite } : { uri: pkmn.sprite }}
-      />
+      <Image style={styles.enemy} source={{ uri: pkmn.sprite }} />
       <Image source={assets.TRAINER_BACK} style={styles.trainer}></Image>
     </View>
   );
@@ -59,14 +56,18 @@ const BattleDialogBox = (props) => {
 
       <View style={styles.options}>
         <PixelText battle>
+          <Image source={assets.POKEBALL} style={{ width: 16, height: 16 }} />
           <Text
-            style={{ textTransform: 'uppercase' }}
+            style={{ textTransform: 'uppercase', paddingLeft: 8 }}
             onPress={() => {
+              const currPokemon = store.get('trainerPokemon');
+              store.set('trainerPokemon')([...currPokemon, pkmn]);
               store.set('gameState')(gameStates.ROAMING);
               store.set('enemy')({});
             }}
           >
-            >Catch
+            {'   '}
+            Catch
           </Text>
         </PixelText>
         <PixelText battle>
@@ -77,7 +78,7 @@ const BattleDialogBox = (props) => {
               store.set('enemy')({});
             }}
           >
-            >Run
+            Run
           </Text>
         </PixelText>
       </View>

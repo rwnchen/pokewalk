@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { Pedometer } from 'expo-sensors';
-import { Image, View, StyleSheet } from 'react-native';
+import { AsyncStorage, Button, Image, View, StyleSheet } from 'react-native';
 import Store, { gameStates } from './store';
 
 import { Encounter } from './Encounter';
 import { Roaming } from './Roaming';
 import * as assets from '../assets';
+
+const DEBUG = true;
 
 const UnconnectedController = (props) => {
   const store = Store.useStore();
@@ -25,6 +27,19 @@ const UnconnectedController = (props) => {
     );
   };
 
+  const fetchOrCreateData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('pokemon');
+      if (value !== null) {
+        store.set('trainerPokemon')(JSON.parse(value));
+      } else {
+        await AsyncStorage.setItem('pokemon', '[]');
+      }
+    } catch (error) {
+      console.log('Error fetching data: ', error);
+    }
+  };
+
   const unsubscribe = () => {
     subscription && subscription.remove();
     subscription = null;
@@ -33,6 +48,7 @@ const UnconnectedController = (props) => {
 
   useEffect(() => {
     subscribe();
+    fetchOrCreateData();
 
     return () => unsubscribe;
   }, []);
@@ -51,6 +67,17 @@ const UnconnectedController = (props) => {
       <TileBG img={assets.GROUND} />
       <TileBG img={assets.GRASS} />
       {renderState()}
+      {DEBUG ? (
+        <Button
+          title={'Clear state'}
+          onPress={async () => {
+            await AsyncStorage.setItem('pokemon', '[]');
+            store.set('pokemon')([]);
+          }}
+        />
+      ) : (
+        ''
+      )}
     </View>
   );
 };
