@@ -3,9 +3,9 @@ import { Pedometer } from 'expo-sensors';
 import { AsyncStorage, Button, Image, View, StyleSheet } from 'react-native';
 import Store, { gameStates } from './components/store';
 
-import { Encounter, Roaming, Pokedex } from './components';
+import { CaughtScreen, Encounter, Roaming, Pokedex } from './components';
 import * as assets from './assets';
-const DEBUG = false;
+const DEBUG = true;
 
 const UnconnectedController = (props) => {
   const store = Store.useStore();
@@ -57,6 +57,8 @@ const UnconnectedController = (props) => {
         return <Encounter />;
       case gameStates.POKEDEX:
         return <Pokedex />;
+      case gameStates.CAUGHT:
+        return <CaughtScreen />;
       default:
         return <Roaming />;
     }

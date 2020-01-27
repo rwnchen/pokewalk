@@ -47,9 +47,8 @@ const BattleDialogBox = (props) => {
   const { store, pkmn } = props;
 
   const catchPkmn = () => {
-    const currPokemon = store.get('trainerPokemon');
-    store.set('trainerPokemon')([...currPokemon, pkmn]);
-    store.set('gameState')(gameStates.ROAMING);
+    store.set('pokemonToCatch')(pkmn);
+    store.set('gameState')(gameStates.CAUGHT);
     store.set('enemy')({});
   };
 

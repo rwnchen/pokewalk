@@ -62,7 +62,14 @@ const Item = ({ item, idx, totalPkmn }) => {
       <Image source={{ uri: item.sprite }} style={styles.dexSprite} />
       <View>
         <PixelText>
-          <Text style={{ textTransform: 'uppercase' }}>{item.name}</Text>
+          <Text style={{ textTransform: 'uppercase', fontSize: 32 }}>
+            {item.nickname}
+          </Text>
+        </PixelText>
+        <PixelText>
+          <Text style={{ textTransform: 'uppercase', color: '#aaa' }}>
+            {item.name}
+          </Text>
         </PixelText>
       </View>
     </View>
